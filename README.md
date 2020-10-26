@@ -5,9 +5,9 @@
 ## Setup
 Install and Setup Postgress
 
-Edit src/resources/application.properties to match your databse settings  
+Edit src/main/resources/application.properties to match your database settings  
 
-Use src/resources/db.sql to create Tables
+Use src/main/resources/db.sql to create Tables
 
 --- 
 
