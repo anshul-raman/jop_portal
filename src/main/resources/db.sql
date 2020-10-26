@@ -1,3 +1,39 @@
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(40) UNIQUE,
+    password VARCHAR(80),
+    enabled BOOLEAN DEFAULT TRUE
+);
+
+INSERT INTO users (user_id, username, password)
+VALUES (1, 'admin', '$2a$10$V5E6O2mrh26aM6FZAcNkTuI2Qc5uVBH8FUD15.XnUcccW6opbjYLq' );
+
+CREATE TABLE IF NOT EXISTS roles (
+    role_id SERIAL PRIMARY KEY,
+    name VARCHAR(33) UNIQUE
+);
+
+INSERT INTO roles (role_id, name)
+VALUES (1, 'ADMIN');
+
+CREATE TABLE IF NOT EXISTS user_roles (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    role_id INTEGER,
+
+    FOREIGN KEY role_id
+        REFERENCES roles(role_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY user_id
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+
+);
+
+INSERT INTO user_roles (id, user_id, role_id)
+VALUES (1, 1, 1);
+
 CREATE TABLE IF NOT EXISTS addresses (
     id SERIAL PRIMARY KEY,
     pincode INTEGER,
