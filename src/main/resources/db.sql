@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (user_id, username, password)
-VALUES (1, 'admin', '$2a$10$V5E6O2mrh26aM6FZAcNkTuI2Qc5uVBH8FUD15.XnUcccW6opbjYLq' );
+VALUES (1, 'admin', '$2a$10$V5E6O2mrh26aM6FZAcNkTuI2Qc5uVBH8FUD15.XnUcccW6opbjYLq' )
+ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS roles (
     role_id SERIAL PRIMARY KEY,
@@ -14,25 +15,27 @@ CREATE TABLE IF NOT EXISTS roles (
 );
 
 INSERT INTO roles (role_id, name)
-VALUES (1, 'ADMIN');
+VALUES (1, 'ADMIN')
+ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS user_roles (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
     role_id INTEGER,
 
-    FOREIGN KEY role_id
+    FOREIGN KEY (role_id)
         REFERENCES roles(role_id)
         ON DELETE CASCADE,
 
-    FOREIGN KEY user_id
+    FOREIGN KEY (user_id)
         REFERENCES users(user_id)
         ON DELETE CASCADE
 
 );
 
 INSERT INTO user_roles (id, user_id, role_id)
-VALUES (1, 1, 1);
+VALUES (1, 1, 1)
+ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS addresses (
     id SERIAL PRIMARY KEY,
