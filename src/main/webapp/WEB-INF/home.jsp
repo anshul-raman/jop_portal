@@ -19,12 +19,14 @@
 </head>
 <body>
 
-<div class="container d-flex flex-column">
+<div class="container ">
 	<h1> Welcome. </h1>
 	
-		<a href="register"> Register </a>
-		<a href="personalprofile"> Login </a>
-		<a href="admin"> Employee Login </a>
+
+		<a class="btn btn-primary" href="register"> Register </a>
+		<a class="btn btn-primary" href="personalprofile"> Login </a>
+		<a class="btn btn-primary" href="admin"> Employee Login </a>
+
 </div>
 
 </body>

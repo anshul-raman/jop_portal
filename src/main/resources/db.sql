@@ -137,3 +137,47 @@ CREATE TABLE IF NOT EXISTS results(
 );
 
 
+CREATE TABLE IF NOT EXISTS companies (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    profile VARCHAR(50),
+    job_description TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS criterias (
+    id SERIAL PRIMARY KEY, 
+    type INTEGER DEFAULT 0,
+    company_id INTEGER NOT NULL,
+    year_min INTEGER DEFAULT 0,
+    year_max INTEGER DEFAULT 3000,
+    min_cgpa NUMERIC DEFAULT 0,
+    min_marks NUMERIC DEFAULT 0,
+    min_percentage NUMERIC DEFAULT 0,
+    allowed_backlogs INTEGER DEFAULT 10,
+
+    FOREIGN KEY (type)
+        REFERENCES criteria_types(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (company_id)
+        REFERENCES companies(id)
+        ON DELETE CASCADE 
+
+    
+
+);
+
+CREATE TABLE IF NOT EXISTS criteria_specialisations (
+    id SERIAL PRIMARY KEY,
+    criteria_id INTEGER NOT NULL,
+    specialisation VARCHAR(50),
+
+    FOREIGN KEY (criteria_id)
+        REFERENCES criterias(id)
+        ON DELETE CASCADE,
+
+    UNIQUE (criteria_id, specialisation)
+);
+
+

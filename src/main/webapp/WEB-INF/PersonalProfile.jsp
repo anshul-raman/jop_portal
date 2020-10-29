@@ -58,7 +58,10 @@
         <a class="btn btn-primary" href="/personalprofile">Personal profile</a>    
         <a class="btn btn-secondary"href="/opportunities">Opportunities</a>
         <a class="btn btn-secondary"href="/resume">Resume</a>
-        
+        <a class="btn btn-link"href="/logout">Logout</a>
+
+
+
     </div>
 
     <div class="container my-5">
