@@ -62,6 +62,9 @@
         
     </div>
 
+    <c:forEach items="${companies}" var="comp">
+        ${comp.name}
+    </c:forEach>
     
 
     <c:if test="${not empty response}">
