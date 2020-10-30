@@ -17,6 +17,8 @@ public class UniversityRespository {
     @Autowired
     JdbcTemplate template;
 
+
+
     public List<University> getAll() {
         String query = "select * from universities ";
         return template.query(query, new RowMapper<University>() {

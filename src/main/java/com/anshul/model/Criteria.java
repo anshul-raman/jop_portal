@@ -3,22 +3,40 @@ package com.anshul.model;
 import java.util.List;
 
 public class Criteria {
-    
+
     private int id;
     private int type;
+    private CriteriaType type_details;
     private int company_id;
     private int year_min;
     private int year_max;
     private float min_cgpa;
-    private float max_cgpa;
+
     private float min_marks;
-    private float max_marks;
+
     private float min_percentage;
-    private float max_percentage;
-    private List<String> specialisatons;
+    private int allowed_backlogs;
+
+    private List<CriteriaSpecialisation> specialisatons;
 
     public int getId() {
         return id;
+    }
+
+    public int getAllowed_backlogs() {
+        return allowed_backlogs;
+    }
+
+    public void setAllowed_backlogs(int allowed_backlogs) {
+        this.allowed_backlogs = allowed_backlogs;
+    }
+
+    public CriteriaType getType_details() {
+        return type_details;
+    }
+
+    public void setType_details(CriteriaType type_details) {
+        this.type_details = type_details;
     }
 
     public void setId(int id) {
@@ -65,28 +83,12 @@ public class Criteria {
         this.min_cgpa = min_cgpa;
     }
 
-    public float getMax_cgpa() {
-        return max_cgpa;
-    }
-
-    public void setMax_cgpa(float max_cgpa) {
-        this.max_cgpa = max_cgpa;
-    }
-
     public float getMin_marks() {
         return min_marks;
     }
 
     public void setMin_marks(float min_marks) {
         this.min_marks = min_marks;
-    }
-
-    public float getMax_marks() {
-        return max_marks;
-    }
-
-    public void setMax_marks(float max_marks) {
-        this.max_marks = max_marks;
     }
 
     public float getMin_percentage() {
@@ -97,22 +99,12 @@ public class Criteria {
         this.min_percentage = min_percentage;
     }
 
-    public float getMax_percentage() {
-        return max_percentage;
-    }
-
-    public void setMax_percentage(float max_percentage) {
-        this.max_percentage = max_percentage;
-    }
-
-    public List<String> getSpecialisatons() {
+    public List<CriteriaSpecialisation> getSpecialisatons() {
         return specialisatons;
     }
 
-    public void setSpecialisatons(List<String> specialisatons) {
+    public void setSpecialisatons(List<CriteriaSpecialisation> specialisatons) {
         this.specialisatons = specialisatons;
     }
-
-
 
 }
