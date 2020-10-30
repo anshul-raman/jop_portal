@@ -1,6 +1,7 @@
 # Job Portal
 
-
+A job portal build using Spring Boot. (Spring MVC, Spring Security, Spring JDBC).
+Currently configured to work with Postgress, 'application.properties' needs to configured to work with MySql. See spring documentation for configuration.  
 
 ## Setup
 Install and Setup Postgress
