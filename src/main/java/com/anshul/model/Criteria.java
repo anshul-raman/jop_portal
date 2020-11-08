@@ -107,4 +107,12 @@ public class Criteria {
         this.specialisatons = specialisatons;
     }
 
+    @Override
+    public String toString() {
+        return "Criteria [allowed_backlogs=" + allowed_backlogs + ", company_id=" + company_id + ", id=" + id
+                + ", min_cgpa=" + min_cgpa + ", min_marks=" + min_marks + ", min_percentage=" + min_percentage
+                + ", specialisatons=" + specialisatons + ", type=" + type + ", type_details=" + type_details
+                + ", year_max=" + year_max + ", year_min=" + year_min + "]";
+    }
+
 }

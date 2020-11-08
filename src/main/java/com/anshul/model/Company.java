@@ -50,6 +50,12 @@ public class Company {
         this.job_description = job_description;
     }
 
+    @Override
+    public String toString() {
+        return "Company [id=" + id + ", job_description=" + job_description + ", name=" + name + ", profile=" + profile
+                + "]";
+    }
+
 
     
 
