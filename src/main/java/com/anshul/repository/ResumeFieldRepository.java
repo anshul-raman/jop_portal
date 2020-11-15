@@ -23,13 +23,12 @@ public class ResumeFieldRepository {
     }
 
     public List<ResumeField> getAll(int id) {
-        String query = "select * from fields where user_id = ?";
+        String query = "select * from fields where user_id = ? order by title";
 
         return template.query(query, new Object[] { id }, new RowMapper<ResumeField>() {
 
-        
-			@Override
-			public ResumeField mapRow(ResultSet rs, int rowNum) throws SQLException {
+            @Override
+            public ResumeField mapRow(ResultSet rs, int rowNum) throws SQLException {
                 ResumeField rf = new ResumeField();
                 rf.setId(rs.getInt("id"));
                 rf.setUser_id(rs.getInt("user_id"));
@@ -38,10 +37,43 @@ public class ResumeFieldRepository {
                 rf.setTitle(rs.getString("title"));
                 rf.setDescription(rs.getString("description"));
                 rf.setDuration(rs.getString("duration"));
-				return rf;
-			}
+                return rf;
+            }
 
         });
+    }
+
+    public List<ResumeField> getFromResumeId(int id){
+        String query = "select * from fields join resume_fields on fields.id = resume_fields.field_id where resume_fields.resume_id = ?";
+
+        return template.query(query, new Object[] { id }, new RowMapper<ResumeField>() {
+
+            @Override
+            public ResumeField mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ResumeField rf = new ResumeField();
+                rf.setId(rs.getInt("id"));
+                rf.setUser_id(rs.getInt("user_id"));
+                rf.setVerified(rs.getBoolean("verified"));
+                rf.setVerified_by(rs.getInt("verified_by"));
+                rf.setTitle(rs.getString("title"));
+                rf.setDescription(rs.getString("description"));
+                rf.setDuration(rs.getString("duration"));
+                return rf;
+            }
+
+        });
+    }
+
+
+    public void delete(int id) {
+        String query = "delete from fields where id = ? ";
+        template.update(query, id);
+
+    }
+
+    public void update(ResumeField field) {
+        String query = "update fields set title = ?, description = ?, duration = ? where id = ? ";
+        template.update(query, field.getTitle(), field.getDescription(), field.getDuration(), field.getId());
     }
 
 }

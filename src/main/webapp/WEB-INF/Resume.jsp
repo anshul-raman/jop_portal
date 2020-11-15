@@ -34,6 +34,7 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
       crossorigin="anonymous"
     ></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/multiselect.js"></script>
 
     <script>
       $.fn.hasAttr = function (name) {
@@ -68,18 +69,18 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
       <a class="btn btn-link" href="/logout">Logout</a>
     </div>
 
-    <div class="container ">
-      <h3>Fields</h3>
+    <div class="container">
+      <h3>
+        Fields
 
-      <div class="rows " style=" max-height: 500px; overflow: scroll;">
-        <div class="col-6 d-flex">
-          <a href="/resume/addField" class="btn btn-link ml-auto">
-            <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add New
-          </a>
-        </div>
+        <a href="/resume/addField" class="btn btn-link ml-auto">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+          Add New
+        </a>
+      </h3>
 
-        <c:forEach items="${resume_fields}" var="res_field"  varStatus="loop">
+      <div class="rows" style="max-height: 500px; overflow: scroll">
+        <c:forEach items="${resume_fields}" var="res_field" varStatus="loop">
           <div class="col-6 my-2">
             <div id="accordion">
               <div class="card">
@@ -92,14 +93,16 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
                       aria-expanded="true"
                       aria-controls="collapse_${res_field.id}"
                     >
-                      ${loop.index} ${res_field.title}
+                      Edit
                     </button>
-                     <button
-                      class="btn btn-link"
-                     
+                    <a
+                      class="btn btn-link border-right"
+                      href="/resume/removeField/${res_field.id}"
                     >
                       Delete
-                    </button>
+                    </a>
+
+                    ${res_field.title}
                   </h5>
                 </div>
 
@@ -110,7 +113,7 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
                   data-parent="#accordion"
                 >
                   <div class="card-body">
-                    <form action="#" method="POST">
+                    <form action="/resume/updateField" method="POST">
                       <input
                         type="hidden"
                         name="${_csrf.parameterName}"
@@ -163,13 +166,121 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
     </div>
 
     <div class="container my-5">
-      <h3>Resume</h3>
+      <h3>
+        Resume
+        <a href="/resume/addResume" class="btn btn-link">
+          <i class="fa fa-plus-square" aria-hidden="true"></i> Add new
+        </a>
+      </h3>
+
+      <div class="rows">
+        <c:forEach items="${resumes}" var="resume">
+          <div class="col-8 my-2">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="heading_${resume.id}">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      data-toggle="collapse"
+                      data-target="#collapse_${resume.id}"
+                      aria-expanded="true"
+                      aria-controls="collapse_${resume.id}"
+                    >
+                      Edit
+                    </button>
+                    <a class="btn btn-link border-right" href="#"> Delete </a>
+
+                    ${resume.name}
+                  </h5>
+                </div>
+
+                <div
+                  id="collapse_${resume.id}"
+                  class="collapse"
+                  aria-labelledby="heading_${resume.id}"
+                  data-parent="#accordion"
+                >
+                  <div class="card-body">
+
+
+
+<form action="#" method="POST">
+
+
+
+
+
+<div class="row">
+  <div class="col">
+    <label for="multiselect_${resume.id}" > ALl Fields</label>
+    <select name="from" id="multiselect_${resume.id}" class="form-control multiselect_enable" size="8" multiple="multiple">
+
+
+      <c:forEach items="${resume_fields}" var="res_flds">
+
+        <c:if test="${not resume.resumeFieldIds.contains(res_flds.id)}">
+            <option  value="${res_flds.id}" >  ${res_flds.title} </option>
+        </c:if>
+
+       
+      </c:forEach>
+
+    </select>
+  </div>
+  <div class="col-2">
+    <button type="button" id="multiselect_${resume.id}_rightAll" class="btn btn-block">  <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i>  </button>
+    <button type="button" id="multiselect_${resume.id}_rightSelected" class="btn btn-block"> <i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+    <button type="button" id="multiselect_${resume.id}_leftSelected" class="btn btn-block">   <i class="fa fa-chevron-left" aria-hidden="true"></i>     </button>
+    <button type="button" id="multiselect_${resume.id}_leftAll" class="btn btn-block">  <i class="fa fa-chevron-left" aria-hidden="true"></i><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
+  </div>
+  <div class="col">
+    <label for="multiselect_${resume.id}_to" > Selected Fields</label>
+    <select name="to" id="multiselect_${resume.id}_to" class="form-control" size="8" multiple="multiple">
+
+      <c:forEach items="${resume.resumeFields}" var="res_flds">
+        <option  value="${res_flds.id}" >  ${res_flds.title} </option>
+      </c:forEach>
+
+    </select>
+  </div>
+</div>
+
+
+
+</form>
+
+
+
+      <script>
+        jQuery(document).ready(function($) { $("#multiselect_${resume.id}").multiselect({
+          sort: false,
+        }); });
+        
+      </script>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+      </div>
     </div>
 
     <c:if test="${not empty response}">
       <script>
         swal("${ response }");
       </script>
+
     </c:if>
+
+
+
+
+
   </body>
 </html>

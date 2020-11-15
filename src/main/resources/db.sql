@@ -183,7 +183,12 @@ CREATE TABLE IF NOT EXISTS criteria_specialisations (
 
 CREATE TABLE IF NOT EXISTS resumes(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30) NOT NULL
+    user_id INTEGER NOT NULL,
+    name VARCHAR(30) NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS fields(
