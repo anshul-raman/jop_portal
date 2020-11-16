@@ -55,4 +55,14 @@ public class ResumeService {
 		resumeRepository.create(id);
 	}
 
+	public void deleteResume(int id) {
+		resumeRepository.delete(id);
+	}
+
+	public void updateResume(Resume res) {
+		resumeRepository.update(res);
+		resumeFieldRepository.deleteFromResumeId(res.getId());
+		resumeFieldRepository.addFromResume(res);
+	}
+
 }

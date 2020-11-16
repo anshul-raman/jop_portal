@@ -189,7 +189,6 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
                     >
                       Edit
                     </button>
-                    <a class="btn btn-link border-right" href="#"> Delete </a>
 
                     ${resume.name}
                   </h5>
@@ -202,66 +201,146 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
                   data-parent="#accordion"
                 >
                   <div class="card-body">
+                    <form action="/resume/updateResume" method="POST">
+                      <div class="form-group">
+                        <input
+                          type="hidden"
+                          name="${_csrf.parameterName}"
+                          value="${_csrf.token}"
+                          readonly
+                        />
+                        <input
+                          type="hidden"
+                          name="id"
+                          value="${resume.id}"
+                          readonly
+                        />
 
+                        <label for="name">Resume Name</label>
+                        <input
+                          id="name"
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          value="${resume.name}"
+                        />
+                      </div>
 
+                      <div class="row">
+                        <div class="col">
+                          <label for="multiselect_${resume.id}">
+                            ALl Fields</label
+                          >
+                          <select
+                            name="from"
+                            id="multiselect_${resume.id}"
+                            class="form-control multiselect_enable"
+                            size="8"
+                            multiple="multiple"
+                          >
+                            <c:forEach items="${resume_fields}" var="res_flds">
+                              <c:if
+                                test="${not resume.resumeFieldIds.contains(res_flds.id)}"
+                              >
+                                <option value="${res_flds.id}">
+                                  ${res_flds.title}
+                                </option>
+                              </c:if>
+                            </c:forEach>
+                          </select>
+                        </div>
+                        <div class="col-2">
+                          <button
+                            type="button"
+                            id="multiselect_${resume.id}_rightAll"
+                            class="btn btn-block mt-4"
+                          >
+                            <i
+                              class="fa fa-chevron-right"
+                              aria-hidden="true"
+                            ></i>
+                            <i
+                              class="fa fa-chevron-right"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                          <button
+                            type="button"
+                            id="multiselect_${resume.id}_rightSelected"
+                            class="btn btn-block"
+                          >
+                            <i
+                              class="fa fa-chevron-right"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                          <button
+                            type="button"
+                            id="multiselect_${resume.id}_leftSelected"
+                            class="btn btn-block"
+                          >
+                            <i
+                              class="fa fa-chevron-left"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                          <button
+                            type="button"
+                            id="multiselect_${resume.id}_leftAll"
+                            class="btn btn-block"
+                          >
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i
+                            ><i
+                              class="fa fa-chevron-left"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <label for="multiselect_${resume.id}_to">
+                            Selected Fields</label
+                          >
+                          <select
+                            name="resumeFieldIds"
+                            id="multiselect_${resume.id}_to"
+                            class="form-control"
+                            size="8"
+                            multiple="multiple"
+                          >
+                            <c:forEach
+                              items="${resume.resumeFields}"
+                              var="res_flds"
+                            >
+                              <option value="${res_flds.id}">
+                                ${res_flds.title}
+                              </option>
+                            </c:forEach>
+                          </select>
+                        </div>
+                      </div>
 
-<form action="#" method="POST">
+                      <div class="form-group">
+                        <div class="container my-2">
+                          <button type="submit" class="btn btn-primary">
+                            Update
+                          </button>
+                          <a
+                            href="/resume/deleteResume/${resume.id}"
+                            type="submit"
+                            class="btn btn-danger"
+                            >Delete</a
+                          >
+                        </div>
+                      </div>
+                    </form>
 
-
-
-
-
-<div class="row">
-  <div class="col">
-    <label for="multiselect_${resume.id}" > ALl Fields</label>
-    <select name="from" id="multiselect_${resume.id}" class="form-control multiselect_enable" size="8" multiple="multiple">
-
-
-      <c:forEach items="${resume_fields}" var="res_flds">
-
-        <c:if test="${not resume.resumeFieldIds.contains(res_flds.id)}">
-            <option  value="${res_flds.id}" >  ${res_flds.title} </option>
-        </c:if>
-
-       
-      </c:forEach>
-
-    </select>
-  </div>
-  <div class="col-2">
-    <button type="button" id="multiselect_${resume.id}_rightAll" class="btn btn-block">  <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i>  </button>
-    <button type="button" id="multiselect_${resume.id}_rightSelected" class="btn btn-block"> <i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
-    <button type="button" id="multiselect_${resume.id}_leftSelected" class="btn btn-block">   <i class="fa fa-chevron-left" aria-hidden="true"></i>     </button>
-    <button type="button" id="multiselect_${resume.id}_leftAll" class="btn btn-block">  <i class="fa fa-chevron-left" aria-hidden="true"></i><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
-  </div>
-  <div class="col">
-    <label for="multiselect_${resume.id}_to" > Selected Fields</label>
-    <select name="to" id="multiselect_${resume.id}_to" class="form-control" size="8" multiple="multiple">
-
-      <c:forEach items="${resume.resumeFields}" var="res_flds">
-        <option  value="${res_flds.id}" >  ${res_flds.title} </option>
-      </c:forEach>
-
-    </select>
-  </div>
-</div>
-
-
-
-</form>
-
-
-
-      <script>
-        jQuery(document).ready(function($) { $("#multiselect_${resume.id}").multiselect({
-          sort: false,
-        }); });
-        
-      </script>
-
-
-
-
+                    <script>
+                      jQuery(document).ready(function ($) {
+                        $("#multiselect_${resume.id}").multiselect({
+                          sort: false,
+                        });
+                      });
+                    </script>
                   </div>
                 </div>
               </div>
@@ -275,12 +354,6 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
       <script>
         swal("${ response }");
       </script>
-
     </c:if>
-
-
-
-
-
   </body>
 </html>

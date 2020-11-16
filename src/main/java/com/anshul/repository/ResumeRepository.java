@@ -39,5 +39,16 @@ public class ResumeRepository {
 
 		});
 	}
+
+	public void delete(int id) {
+		String query = "delete from resumes where id = ?";
+		template.update(query, id);
+
+	}
+
+	public void update( Resume res ){
+		String query = "update resumes set name = ? where id = ? ";
+		template.update(query,  res.getName(), res.getId());
+	}
     
 }

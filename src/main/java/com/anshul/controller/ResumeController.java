@@ -1,8 +1,6 @@
 package com.anshul.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import com.anshul.model.PersonalProfile;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -92,6 +89,32 @@ public class ResumeController {
         resumeService.createResume(user.getId());
 
         return "redirect:/resume";
+    }
+    
+    @GetMapping("deleteResume/{id}")
+    public String deleteResume(@PathVariable int id) {
+
+        resumeService.deleteResume(id);
+
+        return "redirect:/resume";
+    }
+
+    @PostMapping("updateResume")
+    public RedirectView updateResume(@ModelAttribute Resume res, BindingResult result, RedirectAttributes attr) {
+
+        RedirectView redirectView = new RedirectView("/resume", true);
+
+        if (result.hasErrors()) {
+
+            attr.addFlashAttribute("response", "Error");
+        } else {
+
+            resumeService.updateResume(res);
+            attr.addFlashAttribute("response", "Updated Successfully");
+        }
+
+        return redirectView;
+
     }
 
 }
