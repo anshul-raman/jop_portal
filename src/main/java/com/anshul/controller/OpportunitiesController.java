@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.anshul.model.Company;
 import com.anshul.model.PersonalProfile;
+import com.anshul.model.Resume;
 import com.anshul.service.CompanyService;
 import com.anshul.service.PersonalProfileService;
+import com.anshul.service.ResumeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +24,19 @@ public class OpportunitiesController {
     PersonalProfileService personalProfileService;
 
     @Autowired
+    ResumeService resumeService;
+
+    @Autowired
     CompanyService companyService;
 
     @GetMapping
     public String opportunities(Principal principal, Model model) {
         PersonalProfile user = personalProfileService.getFromUsername(principal.getName());
+        List<Resume> resumes = resumeService.getAllResume(user.getId());
         List<Company> companies = companyService.getByUser(user);
         model.addAttribute("profile", user);
         model.addAttribute("companies", companies);
+        model.addAttribute("resumes", resumes);
         return "Opportunities";
     }
 

@@ -70,9 +70,13 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
                 <p class="card-text">${comp.job_description}</p>
                 <a href="/admin/company/${comp.id}" class="btn btn-primary"
                   >Edit Details</a
-				>
-				
-                <a href="/admin/company/delete/${comp.id}" class="btn btn-danger">Delete</a>
+                >
+
+                <a
+                  href="/admin/company/delete/${comp.id}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
               </div>
             </div>
           </div>
