@@ -32,6 +32,12 @@ public class CompanyService {
     @Autowired
     WillingnessRepository willingnessRepository;
 
+    @Autowired
+    ResumeService resumeService;
+
+    @Autowired
+    PersonalProfileService personalProfileService;
+
     public List<Company> getAll() {
         return companyRepository.getAll();
     }
@@ -142,6 +148,18 @@ public class CompanyService {
 
 	public void deleteWillindness(int id, int company_id) {
         willingnessRepository.delete(id, company_id);
+	}
+
+	public List<Willingness> getWillingnessFromCompanyId(int id) {
+        
+        List<Willingness> willingnesses =  willingnessRepository.getFromCompanyId(id);
+        
+        for(var w : willingnesses){
+            w.setResume(resumeService.getFromResumeId(w.getResume_id()));
+            w.setUser(personalProfileService.getFromUserId(w.getUser_id()));
+        }
+
+        return willingnesses;
 	}
 
 }

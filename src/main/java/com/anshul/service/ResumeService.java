@@ -65,4 +65,10 @@ public class ResumeService {
 		resumeFieldRepository.addFromResume(res);
 	}
 
+	public Resume getFromResumeId(int resume_id) {
+		Resume r = resumeRepository.getFromId(resume_id);
+		r.setResumeFields(resumeFieldRepository.getFromResumeId(resume_id));
+		return r;
+	}
+
 }

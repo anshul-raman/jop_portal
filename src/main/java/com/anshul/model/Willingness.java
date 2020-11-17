@@ -4,12 +4,22 @@ public class Willingness {
     private int user_id;
     private int company_id;
     private int resume_id;
+    private PersonalProfile user;
     private Company company;
     private Resume resume;
 
-    public Willingness(){
+    public Willingness() {
         this.company = new Company();
         this.resume = new Resume();
+        this.user = new PersonalProfile();
+    }
+
+    public PersonalProfile getUser() {
+        return user;
+    }
+
+    public void setUser(PersonalProfile user) {
+        this.user = user;
     }
 
     public int getUser_id() {

@@ -65,6 +65,13 @@ public class PersonalProfileService {
 		return ps;
 	}
 
+	public PersonalProfile getFromUserId(int user_id) {
+		PersonalProfile ps = personalProfileRepository.getFromUserId(user_id);
+		ps.setCurrent_address(addressRepository.getFromId(ps.getCurrent_address_fk()));
+		ps.setPermanent_address(addressRepository.getFromId(ps.getPermanent_address_fk()));
+		return ps;
+	}
+
 	public PersonalProfile getFromUsername_min(String username) {
 		PersonalProfile ps = personalProfileRepository.getFromUsername(username);
 		// ps.setCurrent_address(addressRepository.getFromId(ps.getCurrent_address_fk()));
@@ -102,5 +109,7 @@ public class PersonalProfileService {
 	public void updateResult(Result result){
 		resultRepository.update(result);
 	}
+
+
 
 }

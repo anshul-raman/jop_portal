@@ -8,6 +8,7 @@ import java.util.List;
 import com.anshul.model.Company;
 import com.anshul.model.Criteria;
 import com.anshul.model.CriteriaType;
+import com.anshul.model.Willingness;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -77,6 +78,14 @@ public class AdminController {
 		return "redirect:/admin/company";
 	}
 
+	@GetMapping("company/willingness/{id}")
+	public String willingStudents(@PathVariable int id, Model model ){
+		List<Willingness> willingnesses = companyService.getWillingnessFromCompanyId( id);
+		model.addAttribute("willingnessess", willingnesses);
+
+		return "Willingstudents";
+	}
+
 	@PostMapping("criteria/add")
 	public String addCriteria(@RequestParam int comp_id) {
 		// System.out.println(comp_id);
@@ -112,5 +121,7 @@ public class AdminController {
 		criteriaService.addSpecialisation(criteria_id, specialisation);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
+
+	
 
 }

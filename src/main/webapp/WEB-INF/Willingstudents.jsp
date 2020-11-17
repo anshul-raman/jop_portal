@@ -46,44 +46,8 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
       <div class="container d-flex my-3">
         <h2>All Companies</h2>
 
-        <form class="form-inline" method="POST" action="/admin/company/add">
-          <input
-            type="hidden"
-            name="${_csrf.parameterName}"
-            value="${_csrf.token}"
-            readonly
-          />
+        
 
-          <button class="btn btn-link">
-            <i class="fa fa-plus-square" aria-hidden="true"></i> Add Company
-          </button>
-        </form>
-      </div>
-
-      <div class="row">
-        <c:forEach items="${companies}" var="comp">
-          <div class="col-3">
-            <div class="card bg-light mb-3" style="max-width: 18rem">
-              <div class="card-header">${comp.name}</div>
-              <div class="card-body">
-                <h5 class="card-title">${comp.profile}</h5>
-                <p class="card-text">${comp.job_description}</p>
-                <a href="/admin/company/${comp.id}" class="btn btn-primary"
-                  >Edit Details</a
-                >
-
-                <a
-                  href="/admin/company/delete/${comp.id}"
-                  class="btn btn-danger"
-                >
-                  Delete
-                </a>
-                <hr>
-                <a href="/admin/company/willingness/${comp.id}" class="btn btn-info">Willing Students</a>
-              </div>
-            </div>
-          </div>
-        </c:forEach>
       </div>
     </div>
   </body>

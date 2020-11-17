@@ -46,9 +46,27 @@ public class ResumeRepository {
 
 	}
 
-	public void update( Resume res ){
+	public void update(Resume res) {
 		String query = "update resumes set name = ? where id = ? ";
-		template.update(query,  res.getName(), res.getId());
+		template.update(query, res.getName(), res.getId());
 	}
-    
+
+	public Resume getFromId(int resume_id) {
+		String query = "select * from resumes where id = ? ";
+
+		return template.queryForObject(query, new Object[] { resume_id }, new RowMapper<Resume>() {
+
+			@Override
+			public Resume mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Resume r = new Resume();
+				r.setId(rs.getInt("id"));
+				r.setName(rs.getString("name"));
+				r.setUser_id(rs.getInt("user_id"));
+
+				return r;
+			}
+
+		});
+	}
+
 }

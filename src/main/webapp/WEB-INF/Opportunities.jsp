@@ -70,10 +70,15 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
     </div>
 
     <div class="row ml-3 p-3">
-      <div class="col-8">
-        <h3>New Oppotunities</h3>
+      <div class="col-8 border-right ">
+        <h3 class="p-3">New Oppotunities</h3>
+
+        <div class="row ">
+
+        
+
         <c:forEach items="${companies}" var="comp">
-          <div >
+          <div class="col" >
             <div class="card bg-light mb-3" style="max-width: 18rem">
               <div class="card-header">${comp.name}</div>
               <div class="card-body">
@@ -117,13 +122,16 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
             </div>
           </div>
         </c:forEach>
+
+        </div>
+
       </div>
 
-      <div class="col">
+      <div class="col ">
         <h3 class="m-3">My Willingness</h3>
         <c:forEach items="${willingnesses}" var="will">
 
-        <div class="card w-50" >
+        <div class="card w-50 my-4" >
           <div class="card-body">
             <h5 class="card-title">${will.company.name}</h5>
             <h6 class="card-subtitle mb-2 text-muted">${will.company.profile}</h6>

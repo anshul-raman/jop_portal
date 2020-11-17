@@ -52,4 +52,23 @@ public class WillingnessRepository {
         template.update(query, id, company_id);
     }
 
+    public List<Willingness> getFromCompanyId(int id) {
+
+        String query = "select * from willingness where company_id = ?";
+
+        return template.query(query, new Object[] { id }, new RowMapper<Willingness>() {
+
+            @Override
+            public Willingness mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Willingness c = new Willingness();
+                c.setUser_id(rs.getInt("user_id"));
+                c.setCompany_id(rs.getInt("company_id"));
+                c.setResume_id(rs.getInt("resume_id"));
+                return c;
+            }
+
+        });
+
+    }
+
 }

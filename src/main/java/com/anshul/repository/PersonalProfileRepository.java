@@ -72,11 +72,18 @@ public class PersonalProfileRepository {
 
     }
 
-    public  PersonalProfile getFromUsername(String username) {
+    public PersonalProfile getFromUsername(String username) {
 
         User user = userRepository.getUserByUsername(username);
+        return this.getFromUserId(user.getId().intValue());
+        
+    }
+
+
+
+	public PersonalProfile getFromUserId(int user_id) {
         String query = "select * from personal_profiles where id = ?";
-        PersonalProfile ps = template.queryForObject(query, new Object[] { user.getId() },
+        PersonalProfile ps = template.queryForObject(query, new Object[] { user_id },
                 new RowMapper<PersonalProfile>() {
 
                     @Override
@@ -100,8 +107,11 @@ public class PersonalProfileRepository {
 
                 });
 
-        ps.setUsername(username);        
+        // ps.setUsername(username);
         return ps;
     }
+    
+
+
 
 }

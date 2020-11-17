@@ -3,7 +3,6 @@ package com.anshul.controller;
 import java.security.Principal;
 import java.util.List;
 
-import com.anshul.Auth.User;
 import com.anshul.model.Company;
 import com.anshul.model.PersonalProfile;
 import com.anshul.model.Resume;
@@ -13,7 +12,7 @@ import com.anshul.service.PersonalProfileService;
 import com.anshul.service.ResumeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/opportunities")
 public class OpportunitiesController {
-
-
-
 
     @Autowired
     PersonalProfileService personalProfileService;
@@ -71,9 +67,8 @@ public class OpportunitiesController {
         return redirectView;
     }
 
-    
     @GetMapping("delete/{company_id}")
-    public String deleteWillindness(Principal principal, @PathVariable int company_id){
+    public String deleteWillindness(Principal principal, @PathVariable int company_id) {
         PersonalProfile user = personalProfileService.getFromUsername_min(principal.getName());
         companyService.deleteWillindness(user.getId(), company_id);
         return "redirect:/opportunities";
