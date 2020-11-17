@@ -61,7 +61,7 @@ public class AdminController {
 	public String updateCompanyDetails(@ModelAttribute Company comp, BindingResult result) {
 
 		companyService.updateCompany(comp);
-		System.out.println(comp.getName());
+		// System.out.println(comp.getName());
 		return "redirect:/admin/company";
 	}
 
@@ -79,28 +79,28 @@ public class AdminController {
 
 	@PostMapping("criteria/add")
 	public String addCriteria(@RequestParam int comp_id) {
-		System.out.println(comp_id);
+		// System.out.println(comp_id);
 		criteriaService.createNew(comp_id);
 		return "redirect:/admin/company/" + Integer.toString(comp_id);
 	}
 
 	@PostMapping("criteria/update")
 	public String updateCriteria(@ModelAttribute Criteria criteria) {
-		System.out.println(criteria);
+		// System.out.println(criteria);
 		criteriaService.update(criteria);
 		return "redirect:/admin/company/" + Integer.toString(criteria.getCompany_id());
 	}
 
 	@PostMapping("criteria/delete")
 	public String deleteCriteria(@RequestParam int id, @RequestParam int company_id) {
-		System.out.println(id);
+		// System.out.println(id);
 		criteriaService.delete(id);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
 
 	@PostMapping("specialisation/delete")
 	public String deleteSpecialisation(@RequestParam int id, @RequestParam int company_id) {
-		System.out.println(id);
+		// System.out.println(id);
 		criteriaService.deleteSpecialisation(id);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}

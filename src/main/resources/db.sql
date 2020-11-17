@@ -226,3 +226,25 @@ CREATE TABLE IF NOT EXISTS resume_fields(
     PRIMARY KEY (field_id, resume_id)
 );
 
+
+CREATE TABLE IF NOT EXISTS willingness(
+    user_id INTEGER NOT NULL,
+    company_id INTEGER NOT NULL,
+    resume_id INTEGER NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users (user_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (company_id)
+        REFERENCES companies(id)
+        ON DELETE CASCADE,
+    
+    FOREIGN KEY (resume_id)
+        REFERENCES resumes(id)
+        ON DELETE CASCADE,
+
+    PRIMARY KEY (user_id, company_id)
+);
+
+

@@ -38,7 +38,7 @@ public class ResumeController {
         List<Resume> resumes = resumeService.getAllResume(user.getId());
         List<ResumeField> resumeFields = resumeService.getAllFields(user.getId());
 
-        System.out.println(resumes.size());
+        // System.out.println(resumes.size());
 
         model.addAttribute("profile", user);
         model.addAttribute("resumes", resumes);

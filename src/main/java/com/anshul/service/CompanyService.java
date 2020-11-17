@@ -1,15 +1,18 @@
 package com.anshul.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.anshul.model.Company;
 import com.anshul.model.Criteria;
 import com.anshul.model.PersonalProfile;
 import com.anshul.model.Result;
+import com.anshul.model.Willingness;
 import com.anshul.repository.CompanyRepository;
 import com.anshul.repository.CriteriaRepository;
 import com.anshul.repository.ResultRepository;
+import com.anshul.repository.WillingnessRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class CompanyService {
 
     @Autowired
     ResultRepository resultRepository;
+
+    @Autowired
+    WillingnessRepository willingnessRepository;
 
     public List<Company> getAll() {
         return companyRepository.getAll();
@@ -46,16 +52,18 @@ public class CompanyService {
     public List<Company> getByUser(PersonalProfile user) {
         List<Company> companies = this.getAll();
 
-        // System.out.println(companies);
+        HashSet<Company> ht = new HashSet<Company>();
+        List<Willingness> willingnesses = this.getWillingnessFromUserId(user.getId());
+        for (var w : willingnesses) {
+            ht.add(w.getCompany());
+        }
 
         var result = new ArrayList<Company>();
         for (Company c : companies) {
-            if (userCanApply(user, c)) {
+            if (!ht.contains(c) && userCanApply(user, c)) {
                 result.add(c);
             }
         }
-
-        // System.out.println(result);
 
         return result;
     }
@@ -63,60 +71,49 @@ public class CompanyService {
     private boolean userCanApply(PersonalProfile user, Company c) {
         c = this.getDetails(c.getId());
         var userResults = resultRepository.getResultsFromId(user.getId());
-        System.out.println(userResults.size());
+        // System.out.println(userResults.size());
         if (c.getCriteria().isEmpty())
             return true;
 
         boolean UserCanApply = true;
 
-        // System.out.println(c);
-
         for (Criteria crit : c.getCriteria()) {
-
-            // System.out.println(crit.getSpecialisatons());
-            // System.out.println(crit);
 
             boolean valid = false;
             for (Result res : userResults) {
-                // System.out.println(res);
 
                 if (valid)
                     break;
 
                 if (crit.getType() != res.getResult_type()) {
-                    // System.out.println(crit.getType());
-                    // System.out.println(res.getResult_type());
+
                     continue;
                 }
 
                 if (crit.getAllowed_backlogs() < res.getBacklogs()) {
-                    // System.out.println(crit.getAllowed_backlogs());
-                    // System.out.println(res.getBacklogs());
+
                     continue;
                 }
 
                 if (crit.getMin_cgpa() > res.getCgpa()) {
-                    // System.out.println(crit.getMin_cgpa());
-                    // System.out.println(res.getCgpa());
+
                     continue;
                 }
 
                 if (crit.getMin_marks() > res.getMarks()) {
-                    // System.out.println(crit.getMin_marks());
-                    // System.out.println(res.getMarks());
+
                     continue;
                 }
 
                 if (crit.getMin_percentage() > res.getPercentage()) {
-                    // System.out.println(crit.getMin_percentage());
-                    // System.out.println(res.getPercentage());
+
                     continue;
                 }
 
                 valid = true;
 
             }
-            // System.out.println(valid);
+
             UserCanApply = UserCanApply & valid;
         }
 
@@ -130,5 +127,21 @@ public class CompanyService {
     public void delete(int id) {
         companyRepository.deleteFromId(id);
     }
+
+    public List<Willingness> getWillingnessFromUserId(int id) {
+        return willingnessRepository.getAll(id);
+    }
+
+    public void addWillingness(Willingness w){
+        this.addWillingness(w.getUser_id(), w.getCompany_id(), w.getResume_id());
+    }
+
+    public void addWillingness(int user_id, int company_id, int resume_id){
+        willingnessRepository.create(user_id, company_id, resume_id);
+    }
+
+	public void deleteWillindness(int id, int company_id) {
+        willingnessRepository.delete(id, company_id);
+	}
 
 }

@@ -33,6 +33,7 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
@@ -68,36 +69,78 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
       <a class="btn btn-link" href="/logout">Logout</a>
     </div>
 
-    <div class="container">
-      <c:forEach items="${companies}" var="comp">
-        <div class="col-3">
-          <div class="card bg-light mb-3" style="max-width: 18rem">
-            <div class="card-header">${comp.name}</div>
-            <div class="card-body">
-              <h5 class="card-title">${comp.profile}</h5>
-              <p class="card-text">${comp.job_description}</p>
+    <div class="row ml-3 p-3">
+      <div class="col-8">
+        <h3>New Oppotunities</h3>
+        <c:forEach items="${companies}" var="comp">
+          <div >
+            <div class="card bg-light mb-3" style="max-width: 18rem">
+              <div class="card-header">${comp.name}</div>
+              <div class="card-body">
+                <h5 class="card-title">${comp.profile}</h5>
+                <p class="card-text">${comp.job_description}</p>
 
-              <form action="#">
-                <div class="form-group">
-                  <label for="resume_list"> select resume</label>
-                  <select class="form-control" id="resume_list">
-                    <!-- <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option> -->
+                <form action="/opportunities/addWillingness" method="POST">
 
-                    <c:forEach items="${resumes}" var="res" >
-                        <option value="${res.id}" > ${res.name}  </option>
-                    </c:forEach>
 
-                  </select>
-                </div>
-              </form>
+                  <input
+                        type="hidden"
+                        name="${_csrf.parameterName}"
+                        value="${_csrf.token}"
+                        readonly
+                      />
+                      <input
+                        type="hidden"
+                        name="company_id"
+                        value="${comp.id}"
+                        readonly
+                      />
+                      <input
+                        type="hidden"
+                        name="user_id"
+                        value="${profile.id}"
+                        readonly
+                      />
+
+
+                  <div class="form-group">
+                    <label for="resume_list"> select resume</label>
+                    <select name="resume_id" class="form-control" id="resume_list">
+                      <c:forEach items="${resumes}" var="res">
+                        <option value="${res.id}">${res.name}</option>
+                      </c:forEach>
+                    </select>
+                  </div>
+                  <button class="btn btn-primary" >Apply</button>
+                </form>
+              </div>
             </div>
           </div>
+        </c:forEach>
+      </div>
+
+      <div class="col">
+        <h3 class="m-3">My Willingness</h3>
+        <c:forEach items="${willingnesses}" var="will">
+
+        <div class="card w-50" >
+          <div class="card-body">
+            <h5 class="card-title">${will.company.name}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${will.company.profile}</h6>
+            <p class="card-text">
+              ${will.company.job_description}
+            </p>
+            <div class="form-control my-2 ">
+              ${will.resume.name}
+            </div>
+            <a href="/opportunities/delete/${will.company_id}" class="btn btn-danger">Delete</a>
+            
+          </div>
         </div>
-      </c:forEach>
+
+          
+        </c:forEach>
+      </div>
     </div>
 
     <c:if test="${not empty response}">

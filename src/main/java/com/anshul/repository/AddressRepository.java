@@ -32,7 +32,7 @@ public class AddressRepository {
     }
 
     public void update(Address address) {
-        System.out.println("repo" + address);
+        // System.out.println("repo" + address);
         String query = "update  addresses set " + "pincode = :pincode, " + "house_no = :house_no, "
                 + "locality = :locality, " + "state = :state, " + "city = :city, " + "country = :country "
                 + "where id = :id";

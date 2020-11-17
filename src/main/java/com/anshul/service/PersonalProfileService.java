@@ -65,12 +65,19 @@ public class PersonalProfileService {
 		return ps;
 	}
 
+	public PersonalProfile getFromUsername_min(String username) {
+		PersonalProfile ps = personalProfileRepository.getFromUsername(username);
+		// ps.setCurrent_address(addressRepository.getFromId(ps.getCurrent_address_fk()));
+		// ps.setPermanent_address(addressRepository.getFromId(ps.getPermanent_address_fk()));
+		return ps;
+	}
+
 	public void updateOnlyPersonalDetails(PersonalProfile person) {
 		personalProfileRepository.update(person);
 	}
 
 	public void updateAddress(Address address) {
-		System.out.println("HERE\n" + address);
+		// System.out.println("HERE\n" + address);
 		addressRepository.update(address);
 	}
 

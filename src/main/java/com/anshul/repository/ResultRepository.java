@@ -26,7 +26,7 @@ public class ResultRepository {
 
     public void update(Result result) {
 
-        System.out.println("HERE" + result);
+        // System.out.println("HERE" + result);
 
         String query = "update results set result_type = ?,  year = ?, "
                 + " univ_id = ?, specialisation = ?, cgpa = ?, " + "  marks = ? , percentage = ?, backlogs = ? "
