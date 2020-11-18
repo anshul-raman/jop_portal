@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS roles (
 INSERT INTO roles (role_id, name)
     VALUES 
     (1, 'ADMIN'),
-    (1, 'ROLE_ADMIN')
+    (2, 'ROLE_ADMIN')
 ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS user_roles (
@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS user_roles (
 );
 
 INSERT INTO user_roles (id, user_id, role_id)
-VALUES (1, 1, 1)
+    VALUES 
+    (1, 1, 1),
+    (2, 1, 2)
 ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS addresses (
