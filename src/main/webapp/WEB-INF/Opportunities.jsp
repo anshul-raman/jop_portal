@@ -70,83 +70,78 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
     </div>
 
     <div class="row ml-3 p-3">
-      <div class="col-8 border-right ">
+      <div class="col-8 border-right">
         <h3 class="p-3">New Oppotunities</h3>
 
-        <div class="row ">
+        <div class="row">
+          <c:forEach items="${companies}" var="comp">
+            <div class="col">
+              <div class="card bg-light mb-3" style="max-width: 18rem">
+                <div class="card-header">${comp.name}</div>
+                <div class="card-body">
+                  <h5 class="card-title">${comp.profile}</h5>
+                  <p class="card-text">${comp.job_description}</p>
 
-        
+                  <form action="/opportunities/addWillingness" method="POST">
+                    <input
+                      type="hidden"
+                      name="${_csrf.parameterName}"
+                      value="${_csrf.token}"
+                      readonly
+                    />
+                    <input
+                      type="hidden"
+                      name="company_id"
+                      value="${comp.id}"
+                      readonly
+                    />
+                    <input
+                      type="hidden"
+                      name="user_id"
+                      value="${profile.id}"
+                      readonly
+                    />
 
-        <c:forEach items="${companies}" var="comp">
-          <div class="col" >
-            <div class="card bg-light mb-3" style="max-width: 18rem">
-              <div class="card-header">${comp.name}</div>
-              <div class="card-body">
-                <h5 class="card-title">${comp.profile}</h5>
-                <p class="card-text">${comp.job_description}</p>
-
-                <form action="/opportunities/addWillingness" method="POST">
-
-
-                  <input
-                        type="hidden"
-                        name="${_csrf.parameterName}"
-                        value="${_csrf.token}"
-                        readonly
-                      />
-                      <input
-                        type="hidden"
-                        name="company_id"
-                        value="${comp.id}"
-                        readonly
-                      />
-                      <input
-                        type="hidden"
-                        name="user_id"
-                        value="${profile.id}"
-                        readonly
-                      />
-
-
-                  <div class="form-group">
-                    <label for="resume_list"> select resume</label>
-                    <select name="resume_id" class="form-control" id="resume_list">
-                      <c:forEach items="${resumes}" var="res">
-                        <option value="${res.id}">${res.name}</option>
-                      </c:forEach>
-                    </select>
-                  </div>
-                  <button class="btn btn-primary" >Apply</button>
-                </form>
+                    <div class="form-group">
+                      <label for="resume_list"> select resume</label>
+                      <select
+                        name="resume_id"
+                        class="form-control"
+                        id="resume_list"
+                      >
+                        <option value="#">SELECT RESUME</option>
+                        <c:forEach items="${resumes}" var="res">
+                          <option value="${res.id}">${res.name}</option>
+                        </c:forEach>
+                      </select>
+                    </div>
+                    <button class="btn btn-primary">Apply</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        </c:forEach>
-
+          </c:forEach>
         </div>
-
       </div>
 
-      <div class="col ">
+      <div class="col">
         <h3 class="m-3">My Willingness</h3>
         <c:forEach items="${willingnesses}" var="will">
-
-        <div class="card w-50 my-4" >
-          <div class="card-body">
-            <h5 class="card-title">${will.company.name}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${will.company.profile}</h6>
-            <p class="card-text">
-              ${will.company.job_description}
-            </p>
-            <div class="form-control my-2 ">
-              ${will.resume.name}
+          <div class="card w-50 my-4">
+            <div class="card-body">
+              <h5 class="card-title">${will.company.name}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                ${will.company.profile}
+              </h6>
+              <p class="card-text">${will.company.job_description}</p>
+              <div class="form-control my-2">${will.resume.name}</div>
+              <a
+                href="/opportunities/delete/${will.company_id}"
+                class="btn btn-danger"
+                >Delete</a
+              >
             </div>
-            <a href="/opportunities/delete/${will.company_id}" class="btn btn-danger">Delete</a>
-            
           </div>
-        </div>
-
-          
         </c:forEach>
       </div>
     </div>

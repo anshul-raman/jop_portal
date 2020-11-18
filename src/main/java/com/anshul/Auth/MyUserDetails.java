@@ -28,8 +28,6 @@ public class MyUserDetails implements UserDetails {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         
-        
-         
         return authorities;
     }
  
@@ -62,5 +60,10 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isEnabled();
     }
+
+
+	public boolean hasRole(String role) {
+		return this.getAuthorities().contains(role);
+	}
  
 }

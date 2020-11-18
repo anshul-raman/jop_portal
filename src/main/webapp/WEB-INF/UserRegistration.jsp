@@ -49,9 +49,12 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" readonly />
 
 				<button type="submit" class="btn btn-primary">Submit</button>
+				<a href="/"> Login </a>
 			</form>
 
 		</div>
+
+		
 
 		<c:if test="${not empty response}">
 			${response}

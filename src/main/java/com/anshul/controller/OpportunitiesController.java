@@ -60,8 +60,13 @@ public class OpportunitiesController {
             attr.addFlashAttribute("response", "Error");
         } else {
 
-            companyService.addWillingness(will);
-            attr.addFlashAttribute("response", "Updated Successfully");
+            try {
+                companyService.addWillingness(will);
+                attr.addFlashAttribute("response", "Updated Successfully");
+            } catch (Exception e) {
+                attr.addFlashAttribute("response", "Error");
+            }
+
         }
 
         return redirectView;

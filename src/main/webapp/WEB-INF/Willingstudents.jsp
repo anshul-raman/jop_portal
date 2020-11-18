@@ -42,13 +42,159 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
       <a class="btn btn-link" href="/logout">Logout</a>
     </div>
 
-    <div class="container">
-      <div class="container d-flex my-3">
-        <h2>All Companies</h2>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6 my-3 border-right">
+          <h3>Willing Candidates</h3>
+          <table class="table my-3">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <c:forEach
+                items="${willingnessess}"
+                var="will"
+                varStatus="counter"
+              >
+                <tr>
+                  <th scope="row">${counter.index + 1}</th>
+                  <td>${will.user.first_name} ${will.user.last_name}</td>
+                  <td>${will.user.email}</td>
+                  <td>
+                    <button
+                      id="viewDetails_${will.user_id}"
+                      class="btn btn-link"
+                    >
+                      View Details
+                    </button>
 
-        
+                    <script>
+                      $("#viewDetails_${will.user_id}").click(function (event) {
+                        event.preventDefault();
+                        $(".togglerClass").removeAttr("hidden");
 
+                        $("#stud_details").html(`
+                        
+                        <div class="p-3 m-3 d-flex flex-wrap align-content-around justify-content-start">
+
+                        <div class="mx-3 my-2">
+                         Name:
+                          <div class="card p-2 text-center" >
+                               ${will.user.first_name} ${will.user.middle_name} ${will.user.last_name} 
+                          </div>
+                        </div>
+
+                        <div class="mx-3 my-2">
+                         Email:
+                          <div class="card p-2 text-center" >
+                               ${will.user.email} 
+                          </div>
+                        </div>
+
+                        <div class="mx-3 my-2">
+                         Fathers Name:
+                          <div class="card p-2 text-center" >
+                               ${will.user.fathers_name} 
+                          </div>
+                        </div>
+
+                         <div class="mx-3 my-2">
+                         Mothers Name:
+                          <div class="card p-2 text-center" >
+                               ${will.user.mothers_name} 
+                          </div>
+                        </div>
+
+                         <div class="mx-3 my-2">
+                         Fathers ccupation:
+                          <div class="card p-2 text-center" >
+                               ${will.user.fathers_occupation} 
+                          </div>
+                        </div>
+
+
+                         <div class="mx-3 my-2">
+                         Mothers occupation
+                          <div class="card p-2 text-center" >
+                               ${will.user.mothers_occupation} 
+                          </div>
+                        </div>
+
+                         <div class="mx-3 my-2">
+                         Language
+                          <div class="card p-2 text-center" >
+                               ${will.user.mother_tongue} 
+                          </div>
+                        </div>
+
+                         <div class="mx-3 my-2">
+                         Current Address
+                          <div class="card p-2 text-center" >
+                               ${will.user.current_address.house_no},  
+                               ${will.user.current_address.locality} 
+                               ${will.user.current_address.city} 
+                               ${will.user.current_address.state} 
+                               ${will.user.current_address.pincode} 
+                          </div>
+                        </div>
+
+                        <div class="mx-3 my-2">
+                         Permant Address
+                          <div class="card p-2 text-center" >
+                              ${will.user.permanent_address.house_no},  
+                               ${will.user.permanent_address.locality} 
+                               ${will.user.permanent_address.city} 
+                               ${will.user.permanent_address.state} 
+                               ${will.user.permanent_address.pincode} 
+                          </div>
+                        </div>
+
+                        </div>
+                        
+                        
+                        `);
+
+                        $("#res_fields").empty();
+
+                        // <c:forEach items="${will.resume.resumeFields}" var="fld">
+
+                        $("#res_fields").append(`
+
+                          <div class="card m-3 shadow-sm" style="width: 300px">
+                            <div class="card-header">
+                              ${fld.title}
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">${flt.duration}</h5>
+                              <p class="card-text"> ${fld.description} </p>
+                              
+                            </div>
+                          </div>
+                        
+                        `);
+                        // </c:forEach>
+                      });
+                    </script>
+                  </td>
+                </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+        </div>
+        <div hidden class="col togglerClass">
+          <h3>Student Details</h3>
+          <span id="stud_details"></span>
+
+          <h3>Resume Fields</h3>
+          <span id="res_fields" class="d-flex"></span>
+        </div>
       </div>
+      <div></div>
     </div>
   </body>
 </html>

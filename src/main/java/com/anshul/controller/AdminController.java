@@ -79,8 +79,8 @@ public class AdminController {
 	}
 
 	@GetMapping("company/willingness/{id}")
-	public String willingStudents(@PathVariable int id, Model model ){
-		List<Willingness> willingnesses = companyService.getWillingnessFromCompanyId( id);
+	public String willingStudents(@PathVariable int id, Model model) {
+		List<Willingness> willingnesses = companyService.getWillingnessFromCompanyId(id);
 		model.addAttribute("willingnessess", willingnesses);
 
 		return "Willingstudents";
@@ -121,7 +121,5 @@ public class AdminController {
 		criteriaService.addSpecialisation(criteria_id, specialisation);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
-
-	
 
 }

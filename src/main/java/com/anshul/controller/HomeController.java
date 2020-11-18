@@ -1,8 +1,15 @@
 package com.anshul.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.anshul.Auth.MyUserDetails;
+import com.anshul.Auth.User;
 import com.anshul.service.PersonalProfileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +23,18 @@ public class HomeController {
 	PersonalProfileService personalProfileService;
 
 	@GetMapping
-	public String home() {
-		return "home";
+	public String home(SecurityContextHolderAwareRequestWrapper request) {
+
+		if(request.getRemoteUser() == null)
+			return "home";
+		
+		if(request.isUserInRole("ADMIN"))
+			return "redirect:/admin";
+
+		return "redirect:/personalprofile";
+		
+
+
 	}
 
 	@GetMapping("/register")
