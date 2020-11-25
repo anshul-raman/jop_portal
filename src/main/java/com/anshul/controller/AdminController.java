@@ -43,7 +43,6 @@ public class AdminController {
 
 		List<Company> companies = companyService.getAll();
 		model.addAttribute("companies", companies);
-
 		return "admin/companyList";
 	}
 
@@ -53,7 +52,6 @@ public class AdminController {
 		Company company = companyService.getDetails(id);
 		List<CriteriaType> allCriterias = criteriaService.getCriteriaTypes();
 		model.addAttribute("allCriterias", allCriterias);
-
 		model.addAttribute("company", company);
 		return "admin/companyDetails";
 	}
@@ -62,7 +60,6 @@ public class AdminController {
 	public String updateCompanyDetails(@ModelAttribute Company comp, BindingResult result) {
 
 		companyService.updateCompany(comp);
-		// System.out.println(comp.getName());
 		return "redirect:/admin/company";
 	}
 
@@ -88,28 +85,27 @@ public class AdminController {
 
 	@PostMapping("criteria/add")
 	public String addCriteria(@RequestParam int comp_id) {
-		// System.out.println(comp_id);
 		criteriaService.createNew(comp_id);
 		return "redirect:/admin/company/" + Integer.toString(comp_id);
 	}
 
 	@PostMapping("criteria/update")
 	public String updateCriteria(@ModelAttribute Criteria criteria) {
-		// System.out.println(criteria);
+
 		criteriaService.update(criteria);
 		return "redirect:/admin/company/" + Integer.toString(criteria.getCompany_id());
 	}
 
 	@PostMapping("criteria/delete")
 	public String deleteCriteria(@RequestParam int id, @RequestParam int company_id) {
-		// System.out.println(id);
+
 		criteriaService.delete(id);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
 
 	@PostMapping("specialisation/delete")
 	public String deleteSpecialisation(@RequestParam int id, @RequestParam int company_id) {
-		// System.out.println(id);
+
 		criteriaService.deleteSpecialisation(id);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
@@ -122,12 +118,9 @@ public class AdminController {
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
 
-
 	@GetMapping("students")
-	public String students(){
+	public String students() {
 		return "admin/Students";
 	}
-
-
 
 }
