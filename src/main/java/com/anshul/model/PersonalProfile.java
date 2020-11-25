@@ -2,6 +2,8 @@ package com.anshul.model;
 
 import java.util.Date;
 
+import com.anshul.Auth.User;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class PersonalProfile {
@@ -21,12 +23,22 @@ public class PersonalProfile {
     private int permanent_address_fk;
     private Address current_address;
     private Address permanent_address;
-    
-    private  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dob;
+    private User user;
 
-    public PersonalProfile(){
+    private @DateTimeFormat(pattern = "yyyy-MM-dd") Date dob;
+
+    public PersonalProfile() {
         this.current_address = new Address();
         this.permanent_address = new Address();
+        this.user = new User();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

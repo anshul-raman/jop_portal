@@ -108,4 +108,9 @@ public class ResumeFieldRepository {
         });
     }
 
+
+    public void verify(int field_id, int verifier_id){
+        ;
+    }
+
 }

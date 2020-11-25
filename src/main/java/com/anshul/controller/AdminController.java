@@ -3,12 +3,17 @@ package com.anshul.controller;
 import com.anshul.service.CompanyService;
 import com.anshul.service.CriteriaService;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.anshul.model.Company;
 import com.anshul.model.Criteria;
 import com.anshul.model.CriteriaType;
+import com.anshul.model.PersonalProfile;
+import com.anshul.model.ResumeField;
 import com.anshul.model.Willingness;
+import com.anshul.service.PersonalProfileService;
+import com.anshul.service.ResumeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,8 +24,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,6 +39,12 @@ public class AdminController {
 
 	@Autowired
 	CriteriaService criteriaService;
+
+	@Autowired
+	PersonalProfileService personalProfileService;
+
+	@Autowired
+	ResumeService resumeService;
 
 	@GetMapping
 	public String admin_home() {
@@ -119,8 +132,30 @@ public class AdminController {
 	}
 
 	@GetMapping("students")
-	public String students() {
+	public String students(Model model) {
+
+		List<PersonalProfile> students = personalProfileService.getAllStudents();
+		model.addAttribute("students", students);
 		return "admin/Students";
+	}
+
+	@GetMapping("students/{id}")
+	public String studentDetails(Model model, @PathVariable int id) {
+
+		PersonalProfile profile = personalProfileService.getFromUserId(id);
+		List<ResumeField> resumeFields = resumeService.getAllFields(profile.getId());
+		model.addAttribute("user", profile);
+		model.addAttribute("resumeFields", resumeFields);
+		return "admin/StudentDetails";
+
+	}
+
+	@GetMapping("students/verifyfield")
+	public @ResponseBody HashMap<String, String> verifyfield(@RequestParam int field_id,
+			@RequestParam String verifier) {
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("status", "succ");
+		return hm;
 	}
 
 }

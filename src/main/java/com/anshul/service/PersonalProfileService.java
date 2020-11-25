@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import com.anshul.Auth.User;
 import com.anshul.model.Address;
 import com.anshul.model.PersonalProfile;
 import com.anshul.model.Result;
@@ -79,6 +80,10 @@ public class PersonalProfileService {
 		return ps;
 	}
 
+	public List<PersonalProfile> getAllStudents() {
+		return personalProfileRepository.getAllStudents();
+	}
+
 	public void updateOnlyPersonalDetails(PersonalProfile person) {
 		personalProfileRepository.update(person);
 	}
@@ -109,6 +114,8 @@ public class PersonalProfileService {
 	public void updateResult(Result result){
 		resultRepository.update(result);
 	}
+
+
 
 
 

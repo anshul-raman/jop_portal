@@ -2,6 +2,7 @@ package com.anshul.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.anshul.Auth.User;
 import com.anshul.Auth.UserRepository;
@@ -68,50 +69,51 @@ public class PersonalProfileRepository {
 
         namedTemplate.update(query, parameters);
 
-
-
     }
 
     public PersonalProfile getFromUsername(String username) {
 
         User user = userRepository.getUserByUsername(username);
         return this.getFromUserId(user.getId().intValue());
-        
+
     }
 
-
-
-	public PersonalProfile getFromUserId(int user_id) {
-        String query = "select * from personal_profiles where id = ?";
-        PersonalProfile ps = template.queryForObject(query, new Object[] { user_id },
-                new RowMapper<PersonalProfile>() {
-
-                    @Override
-                    public PersonalProfile mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        PersonalProfile ps = new PersonalProfile();
-                        ps.setId(rs.getInt("id"));
-                        ps.setFirst_name(rs.getString("first_name"));
-                        ps.setMiddle_name(rs.getString("middle_name"));
-                        ps.setLast_name(rs.getString("last_name"));
-                        ps.setDob(rs.getDate("dob"));
-                        ps.setEmail(rs.getString("email"));
-                        ps.setFathers_name(rs.getString("fathers_name"));
-                        ps.setMothers_name(rs.getString("mothers_name"));
-                        ps.setFathers_occupation(rs.getString("fathers_occupation"));
-                        ps.setMothers_occupation(rs.getString("mothers_occupation"));
-                        ps.setMother_tongue(rs.getString("mother_tongue"));
-                        ps.setCurrent_address_fk(rs.getInt("current_address_fk"));
-                        ps.setPermanent_address_fk(rs.getInt("permanent_address_fk"));
-                        return ps;
-                    }
-
-                });
-
-        // ps.setUsername(username);
+    public PersonalProfile getFromUserId(int user_id) {
+        String query = "select * from personal_profiles PP join users UU  on PP.id = UU.user_id where id = ?";
+        PersonalProfile ps = template.queryForObject(query, new Object[] { user_id }, new PersonalProfileMapper());
         return ps;
     }
-    
 
+    public List<PersonalProfile> getAllStudents() {
+        String query = "select * from users U join personal_profiles PP on U.user_id = PP.id "
+                + "where not exists (select * from user_roles UR where UR.user_id = U.user_id)";
+        return template.query(query, new PersonalProfileMapper());
+    }
 
+}
+
+class PersonalProfileMapper implements RowMapper<PersonalProfile> {
+
+    @Override
+    public PersonalProfile mapRow(ResultSet rs, int rowNum) throws SQLException {
+        PersonalProfile ps = new PersonalProfile();
+        ps.setId(rs.getInt("id"));
+        ps.setFirst_name(rs.getString("first_name"));
+        ps.setMiddle_name(rs.getString("middle_name"));
+        ps.setLast_name(rs.getString("last_name"));
+        ps.setDob(rs.getDate("dob"));
+        ps.setEmail(rs.getString("email"));
+        ps.setFathers_name(rs.getString("fathers_name"));
+        ps.setMothers_name(rs.getString("mothers_name"));
+        ps.setFathers_occupation(rs.getString("fathers_occupation"));
+        ps.setMothers_occupation(rs.getString("mothers_occupation"));
+        ps.setMother_tongue(rs.getString("mother_tongue"));
+        ps.setCurrent_address_fk(rs.getInt("current_address_fk"));
+        ps.setPermanent_address_fk(rs.getInt("permanent_address_fk"));
+        ps.getUser().setId(rs.getLong("user_id"));
+        ps.getUser().setUsername(rs.getString("username"));
+        ps.getUser().setEnabled(rs.getBoolean("enabled"));
+        return ps;
+    }
 
 }
