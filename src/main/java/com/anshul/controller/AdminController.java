@@ -35,7 +35,7 @@ public class AdminController {
 
 	@GetMapping
 	public String admin_home() {
-		return "admin_home";
+		return "admin/home";
 	}
 
 	@GetMapping("company")
@@ -44,7 +44,7 @@ public class AdminController {
 		List<Company> companies = companyService.getAll();
 		model.addAttribute("companies", companies);
 
-		return "admin_companyList";
+		return "admin/companyList";
 	}
 
 	@GetMapping("company/{id}")
@@ -55,7 +55,7 @@ public class AdminController {
 		model.addAttribute("allCriterias", allCriterias);
 
 		model.addAttribute("company", company);
-		return "admin_companyDetails";
+		return "admin/companyDetails";
 	}
 
 	@PostMapping("company/update")
@@ -83,7 +83,7 @@ public class AdminController {
 		List<Willingness> willingnesses = companyService.getWillingnessFromCompanyId(id);
 		model.addAttribute("willingnessess", willingnesses);
 
-		return "Willingstudents";
+		return "admin/Willingstudents";
 	}
 
 	@PostMapping("criteria/add")
@@ -121,5 +121,13 @@ public class AdminController {
 		criteriaService.addSpecialisation(criteria_id, specialisation);
 		return "redirect:/admin/company/" + Integer.toString(company_id);
 	}
+
+
+	@GetMapping("students")
+	public String students(){
+		return "admin/Students";
+	}
+
+
 
 }

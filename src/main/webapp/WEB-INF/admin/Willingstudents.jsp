@@ -38,7 +38,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
     <div class="jumbotron">
       <h1>Welcome ${profile.username}</h1>
 
+      <a class="btn btn-secondary" href="/admin">Home </a>
       <a class="btn btn-primary" href="/admin/company">Company </a>
+      <a class="btn btn-secondary" href="/admin/students">Students </a>
       <a class="btn btn-link" href="/logout">Logout</a>
     </div>
 
