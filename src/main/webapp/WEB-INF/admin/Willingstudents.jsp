@@ -46,7 +46,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6 my-3 border-right">
+        <div class="col-4 my-3 border-right">
           <h3>Willing Candidates</h3>
           <table class="table my-3">
             <thead class="thead-dark">
@@ -82,81 +82,80 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
 
                         $("#stud_details").html(`
                         
-                        <div class="p-3 m-3 d-flex flex-wrap align-content-around justify-content-start">
+                         <div class="card container shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              <table class="table table-bordered table-hover h-100">
+                <tr>
+                  <td>First Name:</td>
+                  <td>${will.user.first_name}</td>
+                </tr>
+                <tr>
+                  <td>Middle Name:</td>
+                  <td>${will.user.middle_name}</td>
+                </tr>
+                <tr>
+                  <td>Last Name:</td>
+                  <td>${will.user.last_name}</td>
+                </tr>
+              </table>
+            </div>
 
-                        <div class="mx-3 my-2">
-                         Name:
-                          <div class="card p-2 text-center" >
-                               ${will.user.first_name} ${will.user.middle_name} ${will.user.last_name} 
-                          </div>
-                        </div>
+            <div class="col-4">
+              <table class="table table-bordered table-hover h-100">
+                <tr>
+                  <td>Fathers Name:</td>
+                  <td>${will.user.fathers_name}</td>
+                </tr>
+                <tr>
+                  <td>Mothers Name:</td>
+                  <td>${will.user.mothers_name}</td>
+                </tr>
+                <tr>
+                  <td>Fathers Occupation:</td>
+                  <td>${will.user.fathers_occupation}</td>
+                </tr>
+                <tr>
+                  <td>Mothers Occupation:</td>
+                  <td>${will.user.mothers_occupation}</td>
+                </tr>
+              </table>
+            </div>
 
-                        <div class="mx-3 my-2">
-                         Email:
-                          <div class="card p-2 text-center" >
-                               ${will.user.email} 
-                          </div>
-                        </div>
+            <div class="col-4">
+              <table class="table table-bordered table-hover h-100">
+                <tr>
+                  <td>Current Address:</td>
+                  <td>
+                    <p>
+                      ${will.user.current_address.house_no},
+                      ${will.user.current_address.locality},
+                      ${will.user.current_address.city} ${will.user.current_address.state}
+                      ${will.user.current_address.pincode},
+                      ${will.user.current_address.country}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Permanent Address:</td>
+                  <td>
+                    <p>
+                      ${will.user.permanent_address.house_no},
+                      ${will.user.permanent_address.locality},
+                      ${will.user.permanent_address.city}
+                      ${will.user.permanent_address.state}
+                      ${will.user.permanent_address.pincode},
+                      ${will.user.permanent_address.country}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                        <div class="mx-3 my-2">
-                         Fathers Name:
-                          <div class="card p-2 text-center" >
-                               ${will.user.fathers_name} 
-                          </div>
-                        </div>
-
-                         <div class="mx-3 my-2">
-                         Mothers Name:
-                          <div class="card p-2 text-center" >
-                               ${will.user.mothers_name} 
-                          </div>
-                        </div>
-
-                         <div class="mx-3 my-2">
-                         Fathers ccupation:
-                          <div class="card p-2 text-center" >
-                               ${will.user.fathers_occupation} 
-                          </div>
-                        </div>
-
-
-                         <div class="mx-3 my-2">
-                         Mothers occupation
-                          <div class="card p-2 text-center" >
-                               ${will.user.mothers_occupation} 
-                          </div>
-                        </div>
-
-                         <div class="mx-3 my-2">
-                         Language
-                          <div class="card p-2 text-center" >
-                               ${will.user.mother_tongue} 
-                          </div>
-                        </div>
-
-                         <div class="mx-3 my-2">
-                         Current Address
-                          <div class="card p-2 text-center" >
-                               ${will.user.current_address.house_no},  
-                               ${will.user.current_address.locality} 
-                               ${will.user.current_address.city} 
-                               ${will.user.current_address.state} 
-                               ${will.user.current_address.pincode} 
-                          </div>
-                        </div>
-
-                        <div class="mx-3 my-2">
-                         Permant Address
-                          <div class="card p-2 text-center" >
-                              ${will.user.permanent_address.house_no},  
-                               ${will.user.permanent_address.locality} 
-                               ${will.user.permanent_address.city} 
-                               ${will.user.permanent_address.state} 
-                               ${will.user.permanent_address.pincode} 
-                          </div>
-                        </div>
-
-                        </div>
                         
                         
                         `);
@@ -172,7 +171,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
                               ${fld.title}
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">${flt.duration}</h5>
+                              <h5 class="card-title">${fld.duration}</h5>
                               <p class="card-text"> ${fld.description} </p>
                               
                             </div>
@@ -188,12 +187,12 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
             </tbody>
           </table>
         </div>
-        <div hidden class="col togglerClass">
+        <div hidden class="col-8 togglerClass">
           <h3>Student Details</h3>
           <span id="stud_details"></span>
 
           <h3>Resume Fields</h3>
-          <span id="res_fields" class="d-flex"></span>
+          <span id="res_fields" class="d-flex flex-wrap"></span>
         </div>
       </div>
       <div></div>

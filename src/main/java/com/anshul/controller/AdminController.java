@@ -150,11 +150,31 @@ public class AdminController {
 
 	}
 
-	@GetMapping("students/verifyfield")
-	public @ResponseBody HashMap<String, String> verifyfield(@RequestParam int field_id,
-			@RequestParam String verifier) {
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("status", "succ");
+	@PostMapping("students/fieldVerification")
+	public @ResponseBody HashMap<String, String> fieldVerification(@RequestParam int field_id,
+			@RequestParam String verifier, @RequestParam String method) {
+		var hm = new HashMap<String, String>();
+		
+
+		if(method.equals("verify")){
+			try {
+				resumeService.verifyFieldByVerifierUsername(field_id, verifier);
+				hm.put("response", "Field Verified");
+			} catch (Exception e) {
+				hm.put("response", e.getMessage());
+			}
+			
+		}else{
+			try {
+				resumeService.unverifyField(field_id);
+				hm.put("response", "Field Unverified");
+			} catch (Exception e) {
+				hm.put("response", e.getMessage());
+			}
+
+			
+		}
+
 		return hm;
 	}
 

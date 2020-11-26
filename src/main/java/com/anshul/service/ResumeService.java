@@ -71,4 +71,12 @@ public class ResumeService {
 		return r;
 	}
 
+	public void verifyFieldByVerifierUsername(int field_id, String verifier) {
+		resumeFieldRepository.verify(field_id, verifier);
+	}
+
+	public void unverifyField(int field_id) {
+		resumeFieldRepository.unverify(field_id);
+	}
+
 }

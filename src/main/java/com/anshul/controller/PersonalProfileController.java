@@ -80,8 +80,14 @@ public class PersonalProfileController {
             attr.addFlashAttribute("response", "Error");
         } else {
 
-            personalProfileService.updateAddress(address);
-            attr.addFlashAttribute("response", "Updated Successfully");
+            if(address.isValid()){
+                personalProfileService.updateAddress(address);
+                attr.addFlashAttribute("response", "Updated Successfully");
+            }else{
+                attr.addFlashAttribute("response", "Error");
+            }
+
+           
         }
 
         // System.out.println("Controller\n" + address);

@@ -109,8 +109,16 @@ public class ResumeFieldRepository {
     }
 
 
-    public void verify(int field_id, int verifier_id){
-        ;
+    public void verify(int field_id, String verifier){
+        String query = "update fields set verified = true, "+
+                        "verified_by = (select user_id from users where username = ?) "+
+                        "where id = ? ";
+        template.update(query, verifier, field_id);
     }
+
+	public void unverify(int field_id) {
+        String query = "update fields set verified = false where id = ?";
+        template.update(query, field_id);
+	}
 
 }

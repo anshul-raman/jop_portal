@@ -10,15 +10,18 @@ public class PersonalProfile {
 
     private int id;
     private String username;
+
     private String first_name;
     private String middle_name;
     private String last_name;
     private String email;
+
     private String fathers_name;
     private String mothers_name;
     private String fathers_occupation;
     private String mothers_occupation;
     private String mother_tongue;
+    
     private int current_address_fk;
     private int permanent_address_fk;
     private Address current_address;

@@ -71,4 +71,8 @@ public class Address {
         return "Address [city=" + city + ", country=" + country + ", house_no=" + house_no + ", id=" + id
                 + ", locality=" + locality + ", pincode=" + pincode + ", state=" + state + "]";
     }
+
+	public boolean isValid() {
+		return this.pincode > 99999 && this.pincode <= 999999;
+	}
 }
