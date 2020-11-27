@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  isELIgnored="false"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +31,7 @@
 <body>
 
     <div class="jumbotron">
-      <h1>Welcome ${profile.username}</h1>
+      <h1>Welcome <sec:authentication property="name"/> </h1>
 
       <a class="btn btn-secondary" href="/admin">Home </a>
       <a class="btn btn-primary" href="/admin/company">Company </a>

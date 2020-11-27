@@ -32,7 +32,7 @@ uri="http://www.springframework.org/security/tags" %>
   </head>
   <body>
     <div class="jumbotron">
-      <h1>Welcome ${profile.username}</h1>
+      <h1>Welcome <sec:authentication property="name"/></h1>
 
       <a class="btn btn-secondary" href="/admin">Home </a>
       <a class="btn btn-secondary" href="/admin/company">Company </a>

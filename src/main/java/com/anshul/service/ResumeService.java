@@ -25,12 +25,12 @@ public class ResumeService {
 	}
 
 	public List<Resume> getAllResume(int id) {
-		List<Resume> resumes =  resumeRepository.getAll(id);
+		List<Resume> resumes = resumeRepository.getAll(id);
 
-		for(Resume res : resumes){
+		for (Resume res : resumes) {
 			res.setResumeFields(resumeFieldRepository.getFromResumeId(res.getId()));
 			HashSet<Integer> hs = new HashSet<Integer>();
-			for(var i : res.getResumeFields()){
+			for (var i : res.getResumeFields()) {
 				hs.add(i.getId());
 			}
 			res.setResumeFieldIds(hs);
@@ -62,6 +62,10 @@ public class ResumeService {
 	public void updateResume(Resume res) {
 		resumeRepository.update(res);
 		resumeFieldRepository.deleteFromResumeId(res.getId());
+
+		if (res.getResumeFieldIds().isEmpty())
+			return;
+
 		resumeFieldRepository.addFromResume(res);
 	}
 

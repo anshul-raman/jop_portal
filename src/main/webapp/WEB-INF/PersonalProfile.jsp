@@ -2,6 +2,9 @@
 pageEncoding="UTF-8" isELIgnored="false" %> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ taglib prefix = "fmt"
 uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +63,7 @@ uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
   <body>
     <div class="jumbotron">
-      <h1>Welcome ${profile.username}</h1>
+      <h1>Welcome <sec:authentication property="name"/></h1>
 
       <a class="btn btn-primary" href="/personalprofile">Personal profile</a>
       <a class="btn btn-secondary" href="/opportunities">Opportunities</a>

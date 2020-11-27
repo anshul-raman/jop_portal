@@ -1,6 +1,8 @@
 <%@page import="com.anshul.Auth.Role"%> <%@ page language="java"
 contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
 %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,7 +38,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
 
   <body>
     <div class="jumbotron">
-      <h1>Welcome ${profile.username}</h1>
+      <h1>Welcome <sec:authentication property="name"/> </h1>
 
       <a class="btn btn-secondary" href="/admin">Home </a>
       <a class="btn btn-primary" href="/admin/company">Company </a>
@@ -83,78 +85,78 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
                         $("#stud_details").html(`
                         
                          <div class="card container shadow-sm">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4">
-              <table class="table table-bordered table-hover h-100">
-                <tr>
-                  <td>First Name:</td>
-                  <td>${will.user.first_name}</td>
-                </tr>
-                <tr>
-                  <td>Middle Name:</td>
-                  <td>${will.user.middle_name}</td>
-                </tr>
-                <tr>
-                  <td>Last Name:</td>
-                  <td>${will.user.last_name}</td>
-                </tr>
-              </table>
-            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-4">
+                                  <table class="table table-bordered table-hover h-100">
+                                    <tr>
+                                      <td>First Name:</td>
+                                      <td>${will.user.first_name}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Middle Name:</td>
+                                      <td>${will.user.middle_name}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Last Name:</td>
+                                      <td>${will.user.last_name}</td>
+                                    </tr>
+                                  </table>
+                                </div>
 
-            <div class="col-4">
-              <table class="table table-bordered table-hover h-100">
-                <tr>
-                  <td>Fathers Name:</td>
-                  <td>${will.user.fathers_name}</td>
-                </tr>
-                <tr>
-                  <td>Mothers Name:</td>
-                  <td>${will.user.mothers_name}</td>
-                </tr>
-                <tr>
-                  <td>Fathers Occupation:</td>
-                  <td>${will.user.fathers_occupation}</td>
-                </tr>
-                <tr>
-                  <td>Mothers Occupation:</td>
-                  <td>${will.user.mothers_occupation}</td>
-                </tr>
-              </table>
-            </div>
+                                <div class="col-4">
+                                  <table class="table table-bordered table-hover h-100">
+                                    <tr>
+                                      <td>Fathers Name:</td>
+                                      <td>${will.user.fathers_name}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Mothers Name:</td>
+                                      <td>${will.user.mothers_name}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Fathers Occupation:</td>
+                                      <td>${will.user.fathers_occupation}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Mothers Occupation:</td>
+                                      <td>${will.user.mothers_occupation}</td>
+                                    </tr>
+                                  </table>
+                                </div>
 
-            <div class="col-4">
-              <table class="table table-bordered table-hover h-100">
-                <tr>
-                  <td>Current Address:</td>
-                  <td>
-                    <p>
-                      ${will.user.current_address.house_no},
-                      ${will.user.current_address.locality},
-                      ${will.user.current_address.city} ${will.user.current_address.state}
-                      ${will.user.current_address.pincode},
-                      ${will.user.current_address.country}
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Permanent Address:</td>
-                  <td>
-                    <p>
-                      ${will.user.permanent_address.house_no},
-                      ${will.user.permanent_address.locality},
-                      ${will.user.permanent_address.city}
-                      ${will.user.permanent_address.state}
-                      ${will.user.permanent_address.pincode},
-                      ${will.user.permanent_address.country}
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+                                <div class="col-4">
+                                  <table class="table table-bordered table-hover h-100">
+                                    <tr>
+                                      <td>Current Address:</td>
+                                      <td>
+                                        <p>
+                                          ${will.user.current_address.house_no},
+                                          ${will.user.current_address.locality},
+                                          ${will.user.current_address.city} ${will.user.current_address.state}
+                                          ${will.user.current_address.pincode},
+                                          ${will.user.current_address.country}
+                                        </p>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Permanent Address:</td>
+                                      <td>
+                                        <p>
+                                          ${will.user.permanent_address.house_no},
+                                          ${will.user.permanent_address.locality},
+                                          ${will.user.permanent_address.city}
+                                          ${will.user.permanent_address.state}
+                                          ${will.user.permanent_address.pincode},
+                                          ${will.user.permanent_address.country}
+                                        </p>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                         
                         
@@ -171,8 +173,17 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
                               ${fld.title}
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">${fld.duration}</h5>
+                              <h6 class="card-title">${fld.duration}</h6>
                               <p class="card-text"> ${fld.description} </p>
+                              
+                              <c:if test="${fld.verified}">
+                                <i class="fa fa-check" aria-hidden="true"></i> Verified
+                              </c:if>
+                              <c:if test="${not fld.verified}">
+                                <i class="fa fa-times" aria-hidden="true"></i> Not
+                                Verified
+                              </c:if>
+                            
                               
                             </div>
                           </div>

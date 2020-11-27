@@ -23,7 +23,7 @@ public class ResumeRepository {
 	}
 
 	public List<Resume> getAll(int id) {
-		String query = "select * from resumes where user_id = ? ";
+		String query = "select * from resumes where user_id = ? order by name";
 
 		return template.query(query, new Object[] { id }, new RowMapper<Resume>() {
 
