@@ -25,7 +25,7 @@
 
 		<a class="btn btn-primary" href="register"> Register </a>
 		<a class="btn btn-primary" href="personalprofile"> Login </a>
-		<a class="btn btn-primary" href="admin"> Employee Login </a>
+		<a class="btn btn-primary" href="admin"> Admin Login </a>
 
 </div>
 
