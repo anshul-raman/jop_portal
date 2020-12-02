@@ -44,6 +44,7 @@ uri="http://www.springframework.org/security/tags" %>
       <ul>
         <li><a href="/admin/company">Company</a></li>
         <li><a href="/admin/students">Students</a></li>
+        <li><a href="/admin/universities">Universities</a></li>
       </ul>
     </div>
   </body>

@@ -11,9 +11,11 @@ import com.anshul.model.Criteria;
 import com.anshul.model.CriteriaType;
 import com.anshul.model.PersonalProfile;
 import com.anshul.model.ResumeField;
+import com.anshul.model.University;
 import com.anshul.model.Willingness;
 import com.anshul.service.PersonalProfileService;
 import com.anshul.service.ResumeService;
+import com.anshul.service.UniversityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,6 +47,10 @@ public class AdminController {
 
 	@Autowired
 	ResumeService resumeService;
+
+
+	@Autowired
+	UniversityService universityService;
 
 	@GetMapping
 	public String admin_home() {
@@ -176,6 +182,15 @@ public class AdminController {
 		}
 
 		return hm;
+	}
+
+
+
+	@GetMapping("universities")
+	public String getUniversities(Model model){
+		List<University> universities = universityService.getUniversities();
+		model.addAttribute("universities", universities);
+		return "admin/Universities";
 	}
 
 }
